@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photobooth Results</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #fdfcf5;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 0;
+    }
+
+    /* Container for the final photos */
+    .frame-container {
+      /* Some base styling */
+      display: flex;            /* default to flex */
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      border: 10px solid #333;  /* big border to simulate photobooth edges */
+      border-radius: 10px;
+      padding: 10px;
+      gap: 10px;
+      margin: 20px auto 0 auto;
+      max-width: 600px;         /* optional max width */
+    }
+
+    /* Individual photos */
+    .frame-container img {
+      width: 200px; /* adjust as needed */
+      height: auto;
+      border: 2px solid #333;
+      border-radius: 4px;
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Photobooth Pictures</h1>
+
+  <div id="finalFrame" class="frame-container">
+    <!-- Captured photos will be appended here -->
+  </div>
+
+  <script>
+    // Retrieve the photos & frame count from localStorage
+    const photos = JSON.parse(localStorage.getItem('photoboothPhotos')) || [];
+    const frameCount = parseInt(localStorage.getItem('photoboothFrameCount')) || 1;
+    
+    const finalFrame = document.getElementById('finalFrame');
+
+    // 1) Display each captured photo
+    photos.forEach(url => {
+      const img = document.createElement('img');
+      img.src = url;
+      finalFrame.appendChild(img);
+    });
+
+    // 2) Adjust layout based on the frameCount
+    switch (frameCount) {
+      case 1:
+        // Single image centered
+        finalFrame.style.display = 'flex';
+        finalFrame.style.flexDirection = 'column';
+        finalFrame.style.alignItems = 'center';
+        finalFrame.style.justifyContent = 'center';
+        break;
+      
+      case 3:
+        // Vertical strip (stacked)
+        finalFrame.style.display = 'flex';
+        finalFrame.style.flexDirection = 'column';
+        finalFrame.style.alignItems = 'center';
+        break;
+      
+      case 4:
+        // 2x2 grid
+        finalFrame.style.display = 'grid';
+        finalFrame.style.gridTemplateColumns = '1fr 1fr';
+        break;
+      
+      case 6:
+        // 2x3 grid
+        finalFrame.style.display = 'grid';
+        finalFrame.style.gridTemplateColumns = '1fr 1fr';
+        finalFrame.style.gridTemplateRows = '1fr 1fr 1fr';
+        break;
+      
+      default:
+        // Fallback layout (e.g., simple row)
+        finalFrame.style.display = 'flex';
+        finalFrame.style.flexDirection = 'row';
+        finalFrame.style.flexWrap = 'wrap';
+        break;
+    }
+  </script>
+</body>
+</html>
