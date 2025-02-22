@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dear Moments</title>
+    <style>
+        /* Ensure body takes full height */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: url('/Users/harshininujella/Desktop/School_work/Photobooth_website/background_1.jpg') no-repeat center center/cover;
+        }
+
+        /* Background overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        /* Envelope Image */
+        .envelope {
+            width: 300px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Hover Effect */
+        .envelope:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Message Box (Initially Hidden) */
+        .message-box {
+            background-color: #E4B6C4;
+            width: 350px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            font-family: "Courier New", monospace;
+            text-align: left;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
+        }
+
+        /* Show message when envelope is clicked */
+        .show-message {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Hide envelope when message is shown */
+        .hide-envelope {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Header inside the message box */
+        .message-box h2 {
+            margin: 0;
+            font-size: 16px;
+            background: #C490A3;
+            padding: 8px;
+            border-radius: 8px 8px 0 0;
+            color: white;
+            text-align: center;
+        }
+
+        /* Paragraph text styling */
+        .message-box p {
+            font-size: 14px;
+            color: #333;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .love {
+            margin-top: 10px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="/Users/harshininujella/Desktop/School_work/Photobooth_website/envelope.png" class="envelope" id="envelope" alt="Envelope">
+
+    <div class="message-box" id="message">
+        <h2>DEAR MOMENTS</h2>
+        <p>Dear You,</p>
+        <p>Capture snippets of your beautiful life! Our customizable templates and fun add-ons make every snapshot as unique as you are. :)</p>
+        <p class="love">Love, <br> HASH</p>
+    </div>
+
+    <script>
+        let isMessageShown = false;
+
+        document.getElementById("envelope").addEventListener("click", function() {
+            document.getElementById("message").classList.add("show-message");
+            document.getElementById("envelope").classList.add("hide-envelope");
+            isMessageShown = true;
+        });
+
+        document.getElementById("message").addEventListener("click", function() {
+            document.getElementById("message").classList.remove("show-message");
+            document.getElementById("envelope").classList.remove("hide-envelope");
+            isMessageShown = false;
+        });
+    </script>
+
+</body>
+</html>
